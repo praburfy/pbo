@@ -218,6 +218,15 @@
 
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+<script>
+document.querySelectorAll('*').forEach(function(el) {
+    if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+        el.textContent = el.textContent.replace(/HotelKu/g, 'MyHotel');
+    }
+});
+if(document.title) {
+    document.title = document.title.replace(/HotelKu/g, 'MyHotel');
+}
+</script>
 </body>
 </html>

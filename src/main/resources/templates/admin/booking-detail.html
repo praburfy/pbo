@@ -43,6 +43,18 @@
         hr {
             border-top: 2px solid #e3e6f0;
         }
+
+        /* Ganti semua teks "HotelKu" menjadi "MyHotel" pada elemen yang memiliki class/logo tertentu */
+        .logo-text::after {
+            content: "MyHotel";
+        }
+        .logo-text {
+            color: transparent !important;
+            position: relative;
+        }
+        .logo-text::before {
+            content: "";
+        }
     </style>
 </head>
 <body>

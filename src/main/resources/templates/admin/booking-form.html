@@ -381,6 +381,15 @@
         });
     });
 </script>
-
+<script>
+document.querySelectorAll('*').forEach(function(el) {
+    if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+        el.textContent = el.textContent.replace(/HotelKu/g, 'MyHotel');
+    }
+});
+if(document.title) {
+    document.title = document.title.replace(/HotelKu/g, 'MyHotel');
+}
+</script>
 </body>
 </html>

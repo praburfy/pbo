@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HotelKu - Perfect Stays for Every You</title>
+    <title>MyHotel - Perfect Stays for Every You</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -16,6 +16,10 @@
             line-height: 1.6;
             overflow-x: hidden;
             background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
         }
         nav {
             display: flex;
@@ -326,7 +330,7 @@
 <nav id="navbar">
     <a href="#home" class="logo">
         <i class="fas fa-hotel"></i>
-        <span>HotelKu</span>
+        <span>MyHotel</span>
     </a>
 
     <div class="nav-center">
@@ -364,7 +368,7 @@
     <div class="container">
         <h2>Tentang Kami</h2>
         <p>
-            HotelKu adalah platform pemesanan hotel yang menyediakan berbagai pilihan penginapan nyaman sesuai kebutuhan Anda. 
+            MyHotel adalah platform pemesanan hotel yang menyediakan berbagai pilihan penginapan nyaman sesuai kebutuhan Anda. 
             Kami hadir dengan komitmen memberikan pengalaman terbaik tanpa sistem pembayaran online — pembayaran dilakukan saat check-in 
             untuk kemudahan dan fleksibilitas maksimal bagi para tamu kami.
         </p>
@@ -465,6 +469,15 @@
             }
         });
     });
+
+    document.querySelectorAll('*').forEach(function(el) {
+        if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+            el.textContent = el.textContent.replace(/HotelKu/g, 'MyHotel');
+        }
+    });
+    if(document.title) {
+        document.title = document.title.replace(/HotelKu/g, 'MyHotel');
+    }
 </script>
 
 </body>

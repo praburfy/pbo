@@ -13,9 +13,10 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -218,5 +219,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+document.querySelectorAll('*').forEach(function(el) {
+    if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
+        el.textContent = el.textContent.replace(/HotelKu/g, 'MyHotel');
+    }
+});
+if(document.title) {
+    document.title = document.title.replace(/HotelKu/g, 'MyHotel');
+}
+</script>
 </body>
 </html>

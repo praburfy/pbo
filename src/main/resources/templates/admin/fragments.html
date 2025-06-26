@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        /* Tambahkan di file CSS global atau di <style> halaman utama */
+        .header-custom {
+            background: linear-gradient(90deg, #1abc9c 0%, #16a085 100%) !important;
+            border-bottom: none;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.08);
+        }
+        .logo-text {
+            font-weight: bold;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #fff !important;
+        }
+        .navbar .dropdown-toggle, .navbar .dropdown-toggle span, .navbar .icon-text {
+            color: #fff !important;
+        }
+        .navbar .dropdown-menu {
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(44, 62, 80, 0.08);
+        }
+        .sidebar {
+            background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+            min-height: 100vh;
+            padding-top: 1rem;
+        }
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            border-left: 3px solid transparent;
+            border-radius: 8px 0 0 8px;
+            margin-bottom: 6px;
+            font-weight: 500;
+            transition: background 0.2s, border-left-color 0.2s, color 0.2s;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: #16a085;
+            border-left-color: #1abc9c;
+            color: #fff;
+            font-weight: bold;
+        }
+        .sidebar .nav-link i {
+            font-size: 1.2rem;
+            vertical-align: middle;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                min-height: auto;
+                padding-top: 0.5rem;
+            }
+            .sidebar .nav-link {
+                padding: 10px 12px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg header-custom sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-text" th:href="@{/admin/dashboard}">HotelKu</a>
+
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none text-secondary dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle icon-text me-1"></i>
+                        <span>Admin</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                       <li><a class="dropdown-item" th:href="@{/logout}">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <nav th:fragment="sidebar(currentPage)" id="sidebarMenuInternal" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+        <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/dashboard}" th:classappend="${currentPage == 'dashboard' ? 'active' : ''}">
+                        <i class="bi bi-house-door-fill me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/user}" th:classappend="${currentPage == 'user' ? 'active' : ''}">
+                        <i class="bi bi-person-fill me-2"></i>User
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/booking}" th:classappend="${currentPage == 'reservasi' ? 'active' : ''}">
+                        <i class="bi bi-calendar2-check-fill me-2"></i>Booking
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/room}" th:classappend="${currentPage == 'room' ? 'active' : ''}">
+                        <i class="bi bi-door-open-fill me-2"></i>Kamar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/roomtype}" th:classappend="${currentPage == 'roomtype' ? 'active' : ''}">
+                        <i class="bi bi-grid-3x3-gap-fill me-2"></i>Tipe Kamar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</body>
+</html>

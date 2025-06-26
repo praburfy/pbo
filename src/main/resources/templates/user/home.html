@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Home - Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #e0eafc 0%, #cfdef3 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #4f8cff;
+            text-align: center;
+            margin-bottom: 32px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .filter-form {
+            background: #fff;
+            padding: 24px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(79, 140, 255, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 36px;
+        }
+        .filter-form label {
+            font-weight: 600;
+            color: #34495e;
+        }
+        .filter-form input, .filter-form select {
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #d1d8e0;
+            font-size: 15px;
+            background: #fafdff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .filter-form input:focus, .filter-form select:focus {
+            border-color: #4f8cff;
+            box-shadow: 0 0 0 0.15rem rgba(79, 140, 255, 0.12);
+        }
+        .filter-form button {
+            background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            padding: 10px 24px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .filter-form button:hover {
+            background: linear-gradient(90deg, #6fd6ff 0%, #4f8cff 100%);
+        }
+        .error-message {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .room-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(79, 140, 255, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .room-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 8px 32px rgba(79, 140, 255, 0.13);
+        }
+        .room-card-body {
+            padding: 24px 20px 20px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .room-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            color: #4f8cff;
+        }
+        .room-card-details {
+            font-size: 0.97rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .room-card-details p {
+            margin: 5px 0;
+        }
+        .room-card-price {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #4f8cff;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+        .room-card-action {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .room-card-action:hover {
+            background: linear-gradient(90deg, #6fd6ff 0%, #4f8cff 100%);
+        }
+        .no-rooms {
+            text-align: center;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            color: #555;
+            font-size: 1.15rem;
+            box-shadow: 0 2px 8px rgba(79, 140, 255, 0.08);
+        }
+        .header-custom {
+            background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            box-shadow: 0 2px 8px rgba(79, 140, 255, 0.08);
+        }
+        .header-custom .navbar-brand.logo-text {
+            color: #ffffff;
+            font-weight: bold;
+        }
+        .header-custom .navbar-brand.logo-text:hover {
+            color: #f8f9fa;
+        }
+        .header-custom .dropdown-toggle {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+        .header-custom .dropdown-toggle:hover {
+            color: #ffffff !important;
+        }
+        .header-custom .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2879, 140, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        .header-custom .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .logout-button {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #212529;
+            text-align: left;
+            width: 100%;
+        }
+        .logout-button:hover {
+            background-color: #e9ecef;
+        }
+        @media (max-width: 900px) {
+            .container {
+                max-width: 98vw;
+                padding: 0 8px;
+            }
+            .room-grid {
+                gap: 16px;
+            }
+        }
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100vw;
+                padding: 0 2px;
+            }
+            .filter-form {
+                flex-direction: column;
+                gap: 10px;
+                padding: 14px 8px;
+            }
+            .room-card-body {
+                padding: 16px 10px 12px 10px;
+            }
+            .room-card-title {
+                font-size: 1.1rem;
+            }
+            .room-card {
+                border-radius: 10px;
+            }
+            .no-rooms {
+                padding: 20px;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg header-custom sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-text" th:href="@{/user/home}">HotelKu</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                        <a href="#" class="d-flex align-items-center text-decoration-none text-secondary dropdown-toggle" 
+                        id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle icon-text me-1"></i>
+                            <span th:text="${user.fullName}">User</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/user/my-bookings}">History Booking</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container">
+    <h1>Daftar Kamar Tersedia</h1>
+
+    <form th:action="@{/user/home}" method="get" class="filter-form">
+        <label>Check-in:</label>
+        <input type="date" name="checkIn" th:value="${checkInDate}" />
+        
+        <label>Check-out:</label>
+        <input type="date" name="checkOut" th:value="${checkOutDate}" />
+        
+        <label>Tipe Kamar:</label>
+        <select name="roomTypeId">
+            <option value="" th:selected="${selectedRoomTypeId == null}">Semua</option>
+            <option th:each="rt : ${roomType}" 
+                    th:value="${rt.id}" 
+                    th:text="${rt.name}" 
+                    th:selected="${rt.id == selectedRoomTypeId}">
+            </option>
+        </select>
+        
+        <button type="submit">Cari Kamar</button>
+    </form>
+
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <div class="room-grid" th:unless="${#lists.isEmpty(daftarKamar)}">
+        <div class="room-card" th:each="room : ${daftarKamar}">
+            
+            <div class="room-card-body">
+                <h3 class="room-card-title" th:text="${room.roomType.typeName}"></h3>
+                
+                <div class="room-card-details">
+                    <p>Nomor Kamar: <b th:text="${room.roomNumber}"></b></p>
+                    <p>Status: <b th:text="${room.status}"></b></p>
+                    <p>Fasilitas: <b th:text="${room.roomType.amenities}"></b></p>
+                </div>
+
+                <div class="room-card-price">
+                    Rp <span th:text="${#numbers.formatDecimal(room.price, 0, 'COMMA', 0, 'POINT')}"></span> / malam
+                </div>
+
+                 <a class="room-card-action" th:href="@{/user/booking/{roomId}(roomId=${room.id}, checkIn=${checkInDate}, checkOut=${checkOutDate})}">
+                    Booking Sekarang
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(daftarKamar)}" class="no-rooms">
+        <p>Maaf, tidak ada kamar yang tersedia untuk kriteria yang Anda pilih.</p>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

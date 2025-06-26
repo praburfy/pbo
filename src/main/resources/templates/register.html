@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - HotelKu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(120deg, rgba(79,140,255,0.55) 0%, rgba(111,214,255,0.45) 100%);
+            z-index: 1;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .logo i {
+            font-size: 2.2rem;
+            color: #4f8cff;
+            filter: drop-shadow(0 2px 8px #4f8cff88);
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            color: white;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px #4f8cff44;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.22);
+            padding: 44px 32px 32px 32px;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(79,140,255,0.13);
+            width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            color: #4f8cff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4f8cffbb;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 12px 12px 45px;
+            border: 2px solid #d1d8e0;
+            border-radius: 10px;
+            background: #fafdffcc;
+            color: #34495e;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        input::placeholder {
+            color: #b6c3d1;
+        }
+
+        input:focus {
+            border-color: #4f8cff;
+            background: #fafdff;
+            box-shadow: 0 0 0 3px rgba(79,140,255,0.13);
+        }
+
+        button {
+            background: linear-gradient(90deg, #4f8cff 0%, #6fd6ff 100%);
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px #4f8cff22;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #6fd6ff 0%, #4f8cff 100%);
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px #4f8cff33;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.13);
+            border: 1px solid #fca5a5;
+            color: #ef4444;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .link p {
+            color: #34495e;
+        }
+
+        .link a {
+            color: #4f8cff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: #6fd6ff;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.22);
+            color: #4f8cff;
+            padding: 10px 16px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+        }
+
+        .back-btn:hover {
+            background: rgba(111,214,255,0.22);
+            color: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95vw;
+                margin: 0 10px;
+                padding: 28px 10px;
+            }
+            .back-btn {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        <span>Home</span>
+    </a>
+
+    <div>
+        <div class="logo">
+            <i class="fas fa-hotel"></i>
+            <h1>HotelKu</h1>
+        </div>
+
+        <div class="container">
+            <h2>Register Akun</h2>
+            <form th:action="@{/register}" th:object="${user}" method="post">
+                <div class="input-group">
+                    <input type="text" th:field="*{fullName}" placeholder="Full Name" required />
+                    <i class="fas fa-id-card"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" th:field="*{email}" placeholder="Email" required />
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" th:field="*{username}" placeholder="Username" required />
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" th:field="*{password}" placeholder="Password" required />
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <button type="submit">Register</button>
+            </form>
+            
+            <p class="error" th:if="${error}" th:text="${error}"></p>
+            
+            <div class="link">
+                <p>sudah punya akun? <a th:href="@{/login}">Masuk di sini</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
